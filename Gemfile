@@ -9,6 +9,7 @@ gem 'puma', '~> 4.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 gem 'interactor-rails', '~> 2.2', '>= 2.2.1'
+gem 'bcrypt', '~> 3.1', '>= 3.1.11'
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0', '>= 4.0.2'
