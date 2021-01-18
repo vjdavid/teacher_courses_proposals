@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_205136) do
+ActiveRecord::Schema.define(version: 2021_01_18_020745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_205136) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "votes_count", default: 0, null: false
     t.index ["title"], name: "index_courses_on_title"
   end
 
@@ -38,9 +39,21 @@ ActiveRecord::Schema.define(version: 2021_01_17_205136) do
     t.string "full_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "votes_count", default: 0, null: false
     t.index ["email"], name: "index_teachers_on_email"
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.string "votable_type", null: false
+    t.bigint "votable_id", null: false
+    t.bigint "voter_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
+    t.index ["voter_id"], name: "index_votes_on_voter_id"
   end
 
   add_foreign_key "course_proposals", "courses"
   add_foreign_key "course_proposals", "teachers"
+  add_foreign_key "votes", "teachers", column: "voter_id"
 end
